@@ -11,7 +11,7 @@ import { NavController } from '@ionic/angular';
 })
 export class RegisterPage implements OnInit {
 
-
+  genderOptions = ['Female', 'Male', 'Other'];
   validations_form: FormGroup;
   errorMessage: string = '';
   successMessage: string = '';
@@ -24,6 +24,12 @@ export class RegisterPage implements OnInit {
     'password': [
       { type: 'required', message: 'Password is required.' },
       { type: 'minlength', message: 'Password must be at least 5 characters long.' }
+    ],
+    'username': [
+      { type: 'required', message: 'Username is required.'}
+    ],
+    'gender': [
+      { type: 'required', message: 'Gender is required.'}
     ]
   };
 
@@ -43,6 +49,12 @@ export class RegisterPage implements OnInit {
         Validators.minLength(5),
         Validators.required
       ])),
+      username: new FormControl('', Validators.compose([
+        Validators.required
+      ])),
+      gender: new FormControl('', Validators.compose([
+        Validators.required
+      ])),
     });
   }
 
@@ -52,6 +64,7 @@ export class RegisterPage implements OnInit {
         console.log(res);
         this.errorMessage = "";
         this.successMessage = "Your account has been created. Please log in.";
+      
       }, err => {
         console.log(err);
         this.errorMessage = err.message;

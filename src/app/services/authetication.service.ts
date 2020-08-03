@@ -1,6 +1,7 @@
 // authentication.service.ts
 import { Injectable } from "@angular/core";
 import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +9,18 @@ import { AngularFireAuth } from '@angular/fire/auth';
 export class AuthenticateService {
 
   constructor(
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    public afstore: AngularFirestore
   ) { }
 
   registerUser(value) {
+    this.afstore.collection('Users').add({
+      username: value.username,
+      password: value.password,
+      email: value.email,
+      gender: value.gender
+    });
     return new Promise<any>((resolve, reject) => {
-
       this.afAuth.createUserWithEmailAndPassword(value.email, value.password)
         .then(
           res => resolve(res),
