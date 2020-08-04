@@ -14,19 +14,12 @@ export class AuthenticateService {
   ) { }
 
   registerUser(value) {
-    this.afstore.collection('Users').add({
-      username: value.username,
-      password: value.password,
-      email: value.email,
-      gender: value.gender
-    });
     return new Promise<any>((resolve, reject) => {
       this.afAuth.createUserWithEmailAndPassword(value.email, value.password)
         .then(
           res => resolve(res),
           err => reject(err))
     })
-
   }
 
   loginUser(value) {

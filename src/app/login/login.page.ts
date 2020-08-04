@@ -19,8 +19,8 @@ export class LoginPage implements OnInit {
 
     private navCtrl: NavController,
     private authService: AuthenticateService,
-    private formBuilder: FormBuilder
-    //public user: UserService
+    private formBuilder: FormBuilder,
+    public user: UserService
 
   ) { }
 
@@ -55,6 +55,10 @@ export class LoginPage implements OnInit {
     this.authService.loginUser(value)
       .then(res => {
         console.log(res);
+        this.user.setUser({
+          email: value.email,
+          uid: res.user.uid
+        })
         this.errorMessage = "";
         this.navCtrl.navigateForward('/dashboard');
       }, err => {

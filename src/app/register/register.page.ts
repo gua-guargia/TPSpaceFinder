@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthenticateService } from '../services/authetication.service';//typo
 import { NavController } from '@ionic/angular';
+import { User } from 'firebase';
+import { UserService } from '../user.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-register',
@@ -36,7 +39,9 @@ export class RegisterPage implements OnInit {
   constructor(
     private navCtrl: NavController,
     private authService: AuthenticateService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public user: UserService,
+    public afstore: AngularFirestore
   ) { }
 
   ngOnInit() {
@@ -62,6 +67,11 @@ export class RegisterPage implements OnInit {
     this.authService.registerUser(value)
       .then(res => {
         console.log(res);
+        this.afstore.doc(`Users/${res.user.uid}`).set({
+          username: value.username,
+          password: value.password,
+          email: value.email,
+          gender: value.gender})
         this.errorMessage = "";
         this.successMessage = "Your account has been created. Please log in.";
       
