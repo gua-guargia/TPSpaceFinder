@@ -1,5 +1,7 @@
 {
   "name": "TPSpaceFinder",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

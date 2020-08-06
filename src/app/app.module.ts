@@ -25,12 +25,14 @@ import { UserService } from './user.service';
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireAuthModule,
+    AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, UserService
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, 
+    UserService
   ],
   bootstrap: [AppComponent]
 })

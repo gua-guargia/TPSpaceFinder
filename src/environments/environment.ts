@@ -10,8 +10,8 @@ export const environment = {
     databaseURL: "https://tpspacefinder-3afc3.firebaseio.com",
     projectId: "tpspacefinder-3afc3",
     storageBucket: "tpspacefinder-3afc3.appspot.com",
-    messagingSenderId: "900220890314"
-    //appId: "1:900220890314:web:e9cb295ab3f3f5e84d5833",
+    messagingSenderId: "900220890314",
+    //appId: "1:900220890314:web:e9cb295ab3f3f5e84d5833"
     //measurementId: "G-C626PKP4ER"
   }
 };
