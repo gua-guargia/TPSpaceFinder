@@ -4,6 +4,20 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [fullscreen]="true">
+  <ion-searchbar
+    showcancelbutton=""
+    (ionInput)="filterList($event)"
+  ></ion-searchbar>
 
+  <ion-list lines="none">
+    <ion-item *ngFor="let locationItem of locationList">
+      <ion-label class="ion-text-wrap">
+        <ion-text color="primary">
+          <h3>{{ locationItem.name }}</h3>
+        </ion-text>
+        <p>{{ locationItem.seatsAvaliable}} -- {{ locationItem.seatsOccupancy }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
