@@ -11,15 +11,15 @@
   ></ion-searchbar>
 
   <ion-list lines="none">
-    <ion-item *ngFor="let locationItem of locationList">
+    <ion-item *ngFor="let locationItem of locationList" (click)="navigateToDetails(locationItem)">
+      <ion-thumbnail slot="start">
+        <img [src]=" '../../assets/image/' + locationItem.name + '.jpg' ">
+      </ion-thumbnail>
       <ion-label class="ion-text-wrap">
-        <ion-thumbnail slot="start">
-          <img [src]=" '../../assets/image/' + locationItem.name + '.jpg' ">
-        </ion-thumbnail>
         <ion-text color="primary">
           <h3>{{ locationItem.name }}</h3>
         </ion-text>
-        <p>{{ locationItem.seatsAvaliable}} -- {{ locationItem.seatsOccupancy }}</p>
+        <p>Seats Available: {{ locationItem.seatsAvailable}}</p>
       </ion-label>
     </ion-item>
   </ion-list>

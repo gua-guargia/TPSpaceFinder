@@ -1,6 +1,7 @@
 // app-routing.module.ts
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+//import { DataResolverService} from './resolver/data-resolver.service';
 
 const routes: Routes = [
   // {
@@ -39,6 +40,10 @@ const routes: Routes = [
   {
     path: 'qrcode',
     loadChildren: () => import('./qrcode/qrcode.module').then( m => m.QrcodePageModule)
+  },
+  {
+    path: 'detailspage',
+    loadChildren: () => import('./detailspage/detailspage.module').then( m => m.DetailspagePageModule)
   },
 ];
 

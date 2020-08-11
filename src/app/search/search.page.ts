@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+//import { NavController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { first } from 'rxjs/operators';
+import { DataService } from '../services/data.service';
+import { Router, NavigationExtras} from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -10,12 +13,24 @@ import { first } from 'rxjs/operators';
 export class SearchPage implements OnInit {
   public locationList: any[];
 
-  constructor(private firestore: AngularFirestore) { }
+  constructor(
+    //private navCtrl: NavController,
+    private router: Router, 
+    private dataService: DataService,
+    private firestore: AngularFirestore) { }
 
   async ngOnInit() {
     this.locationList = await this.initializeItems();
   }
   
+  navigateToDetails(locationItem) {
+    this.router.navigate(['detailspage'], {
+      queryParams: {
+        value: JSON.stringify(locationItem)
+      }
+    });
+  }
+
   async initializeItems(): Promise<any> {
     const locationList = await this.firestore.collection('Locations')
       .valueChanges().pipe(first()).toPromise();
