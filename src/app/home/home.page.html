@@ -6,7 +6,7 @@
 
 <ion-content class="ion-padding">
   <ion-thumbnail slot="start">
-    <ion-img src="../../assets/image/logo.png"></ion-img>
+    <img [src] = "'../../assets/image/logo' + '.png'">
   </ion-thumbnail>
   <ion-button routerLink = "/login" routerDirection="forward" fill="outline" expand="block" >Login</ion-button>
   <ion-row style="height: 10px"></ion-row>
