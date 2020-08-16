@@ -5,5 +5,14 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-label >{{data.name}}</ion-label>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-label >{{data.name}}</ion-label>
+      </ion-col>
+      <ion-col size="1">
+        <img src={{myimage}} (click) = "addEvent();">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

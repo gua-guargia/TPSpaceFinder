@@ -68,6 +68,7 @@ export class RegisterPage implements OnInit {
       .then(res => {
         console.log(res);
         this.afstore.doc(`Users/${res.user.uid}`).set({
+          favouriteLocations: [],
           username: value.username,
           password: value.password,
           email: value.email,
