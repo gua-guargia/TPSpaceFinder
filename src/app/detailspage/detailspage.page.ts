@@ -15,10 +15,11 @@ export class DetailspagePage implements OnInit {
   data: any
   public myimage = '../../assets/image/emptyheart.png'
   mainuser: AngularFirestoreDocument
-  favouriteLocations
+  public favouriteLocations
   UID
-  //newfavouriteLocations
   exist
+  //newfavouriteLocations
+  //public exist: boolean = false
   sub
   busy: boolean = false
  
@@ -36,7 +37,12 @@ export class DetailspagePage implements OnInit {
     this.UID = user.getUID
     this.mainuser = afs.doc(`Users/${user.getUID()}`)
 		this.sub = this.mainuser.valueChanges().subscribe(event => {
-			this.favouriteLocations = event.favouriteLocations
+      this.favouriteLocations = event.favouriteLocations;
+      for( var i = 0; i < this.favouriteLocations.length; i++) { 
+        if ( this.favouriteLocations[i] === this.data.name) { 
+          this.myimage = '../../assets/image/filledheart.png';
+        }
+      }
     });
     console.log(this.favouriteLocations);
     console.log(user.getUID);
@@ -45,16 +51,22 @@ export class DetailspagePage implements OnInit {
  
   ngOnInit() {
     //update the favorite status
-    this.checkImage();
+    //this.checkImage();
   }
 
   ngOnDestroy() {
 		this.sub.unsubscribe()
   }
-
-  checkImage() {
-    this.exist = this.favouriteLocations.find(e => e === this.data.name);
+/*
+  public checkImage(favourate) {
+    //this.exist = this.favouriteLocations.find(e => e === this.data.name);
     //this.exist = this.favouriteLocations.includes(this.data.name);
+    for( var i = 0; i < favourate.length; i++) { 
+      if ( favourate[i] === this.data.name) { 
+        this.exist = true; 
+        i--; 
+      }
+    }
     if(this.exist == false) {
       this.myimage = '../../assets/image/emptyheart.png';
       console.log('string[]!');
@@ -63,7 +75,7 @@ export class DetailspagePage implements OnInit {
       this.myimage = '../../assets/image/filledheart.png';
       console.log('yes, the user has set this location as their favourite');
     }
-  }
+  }*/
 
   async addEvent() {
     this.busy = true
