@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Details</ion-title>
   </ion-toolbar>
@@ -18,6 +18,12 @@
       <ion-col size = "12">
           <img [src]=" '../../assets/image/' + data.name + '.jpg' ">
       </ion-col>
+    </ion-row>
+    <ion-row>
+      <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+        <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+          (dragEnd)="markerDragEnd($event)"></agm-marker>
+      </agm-map>
     </ion-row>
   </ion-grid>
 </ion-content>
