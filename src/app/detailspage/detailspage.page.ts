@@ -6,6 +6,8 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { firestore } from 'firebase/app';
 import { async } from '@angular/core/testing';
 
+declare var google: any;
+
 @Component({
   selector: 'app-detailspage',
   templateUrl: './detailspage.page.html',
@@ -24,24 +26,79 @@ export class DetailspagePage implements OnInit {
   sub
   busy: boolean = false
 
-  //google map
-  title: string = 'AGM project';
-  latitude: number;
-  longitude: number;
-  zoom: number;
-  address: string;
-  private geoCoder;
+  //for map
+  map: any;
+  @ViewChild('map', {read: ElementRef, static: false}) mapRef:ElementRef;
+  infoWindows: any = [];
+  markers: any = [
+  {
+    title: "The Short Circuit",
+    latitude: "1.346270",
+    longitude: "103.931577"
+  },
+  {
+    title: "The Bread Board",
+    latitude: "1.346772",
+    longitude: "103.930154"
+  },
+  {
+    title: "The Business Park",
+    latitude: "1.344199",
+    longitude: "103.933042"
+  },
+  {
+    title: "The Designer Pad",
+    latitude: "1.345174",
+    longitude: "103.931471"
+  },
+  {
+    title: "The Flavours",
+    latitude: "1.345033",
+    longitude: "103.934102"
+  },
+  {
+    title: "McDonald's",
+    latitude: "1.345318",
+    longitude: "103.931810"
+  },
+  {
+    title: "TripletS",
+    latitude: "1.344686",
+    longitude: "103.932225"
+  },
+  {
+    title: "Subway",
+    latitude: "1.344920",
+    longitude: "103.932289"
+  },
+  {
+    title: "Bistro Lab",
+    latitude: "1.343949",
+    longitude: "103.931801"
+  },
+  {
+    title: "Sugarloaf",
+    latitude: "1.346845",
+    longitude: "103.929159"
+  },
+  {
+    title: "Canopy Coffee Club Café",
+    latitude: "1.345140",
+    longitude: "103.935490"
+  },
+  {
+    title: "The Top Table",
+    latitude: "1.346483",
+    longitude: "103.929196"
+  }];
 
-  @ViewChild('search',{static:false})
-  public searchElementRef: ElementRef;
- 
   constructor(
     private route: ActivatedRoute, 
     private router: Router,
     private afs: AngularFirestore, 
-    private user: UserService,
-    private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone
+    private user: UserService
+    //private mapsAPILoader: MapsAPILoader,
+    //private ngZone: NgZone
     ) {
     //for the pass info from the search page
     this.route.queryParams.subscribe((res) => {
@@ -65,75 +122,12 @@ export class DetailspagePage implements OnInit {
   }
 
 
- 
   ngOnInit() {
-    //load Places Autocomplete
-    this.mapsAPILoader.load().then(() => {
-      this.setCurrentLocation();
-      this.geoCoder = new google.maps.Geocoder;
-
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-        types: ["address"]
-      });
-      autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
-          //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-          //verify result
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
-          }
-
-          //set latitude, longitude and zoom
-          this.latitude = place.geometry.location.lat();
-          this.longitude = place.geometry.location.lng();
-          this.zoom = 12;
-        });
-      });
-    });
+    
   }
 
   ngOnDestroy() {
 		this.sub.unsubscribe()
-  }
-
-
-    // Get Current Location Coordinates
-    private setCurrentLocation() {
-      if ('geolocation' in navigator) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          this.latitude = position.coords.latitude;
-          this.longitude = position.coords.longitude;
-          this.zoom = 8;
-          this.getAddress(this.latitude, this.longitude);
-        });
-      }
-    }
-
-  markerDragEnd($event: any) {
-      console.log($event);
-      this.latitude = $event.coords.lat;
-      this.longitude = $event.coords.lng;
-      this.getAddress(this.latitude, this.longitude);
-  }
-
-  getAddress(latitude, longitude) {
-      this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
-        console.log(results);
-        console.log(status);
-        if (status === 'OK') {
-          if (results[0]) {
-            this.zoom = 12;
-            this.address = results[0].formatted_address;
-          } else {
-            window.alert('No results found');
-          }
-        } else {
-          window.alert('Geocoder failed due to: ' + status);
-        }
-  
-      });
   }
 
   async addEvent() {
@@ -160,5 +154,59 @@ export class DetailspagePage implements OnInit {
 
   }
 
+  //everytime we open this page, this function will run
+  ionViewDidEnter() {
+    this.showMap();
+  }
+
+  addMarkersToMap(markers) {
+    for (let marker of markers) {
+      let position = new google.maps.LatLng(marker.latitude, marker.longitude);
+      let mapMarker = new google.maps.Marker({
+        position: position,
+        title: marker.title,
+        latitude: marker.latitude,
+        longitude: marker.longitude
+      });
+
+      mapMarker.setMap(this.map);
+      this.addInfoWindowToMarker(mapMarker);
+    }
+  }
+
+  addInfoWindowToMarker(marker) {
+    let infoWindowContent = '<div id= "content">' + '<h2 id="firstHeading" class="firstHeading">' + marker.title + '</h2>' +
+                            '<p>Latitude: ' + marker.latitude + '</p>' +
+                            '<p>Longitude: ' + marker.longitude + '</p>' +
+                            '</div>';
+    let infoWindow = new google.maps.infoWindow({
+      content: infoWindowContent
+    });
+
+    marker.addListener('click', () => {
+      this.closeAllInfoWindows();
+      infoWindow.open(this.map, marker);
+    });
+
+    this.infoWindows.push(infoWindow);
+  }
+
+  closeAllInfoWindows() {
+    for(let window of this.infoWindows) {
+      window.close();
+    }
+  }
+
+  showMap() {
+    const location = new google.maps.LatLng(-43.552965, 172.47315);
+    const options = {
+      center: location,
+      zoom: 15,
+      disableDefaultUI : true
+    }
+    this.map = new google.maps.Map(this.mapRef.nativeElement, options);
+  }
+
 
 }
+
