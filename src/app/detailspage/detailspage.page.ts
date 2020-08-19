@@ -161,16 +161,18 @@ export class DetailspagePage implements OnInit {
 
   addMarkersToMap(markers) {
     for (let marker of markers) {
-      let position = new google.maps.LatLng(marker.latitude, marker.longitude);
-      let mapMarker = new google.maps.Marker({
-        position: position,
-        title: marker.title,
-        latitude: marker.latitude,
-        longitude: marker.longitude
-      });
+      if(marker.title == this.data.name) {
+        let position = new google.maps.LatLng(marker.latitude, marker.longitude);
+        let mapMarker = new google.maps.Marker({
+          position: position,
+          title: marker.title,
+          latitude: marker.latitude,
+          longitude: marker.longitude
+        });
 
-      mapMarker.setMap(this.map);
-      this.addInfoWindowToMarker(mapMarker);
+        mapMarker.setMap(this.map);
+        this.addInfoWindowToMarker(mapMarker);
+      }
     }
   }
 
@@ -187,6 +189,14 @@ export class DetailspagePage implements OnInit {
       this.closeAllInfoWindows();
       infoWindow.open(this.map, marker);
     });
+
+    /*
+    marker.addListener('idle', () => {
+      if(marker.title == this.data.name) {
+        this.closeAllInfoWindows();
+        infoWindow.open(this.map, marker);
+      }
+    });*/
 
     this.infoWindows.push(infoWindow);
   }
@@ -205,6 +215,7 @@ export class DetailspagePage implements OnInit {
       disableDefaultUI : true
     }
     this.map = new google.maps.Map(this.mapRef.nativeElement, options);
+    this.addMarkersToMap(this.markers);
   }
 
 

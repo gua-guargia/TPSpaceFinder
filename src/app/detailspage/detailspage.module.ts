@@ -15,11 +15,7 @@ import { AgmCoreModule } from '@agm/core';
     CommonModule,
     FormsModule,
     IonicModule,
-    DetailspagePageRoutingModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyA7CuXVShp5DhAd9R6xppUfPijBLF5zmkU', 
-      libraries: ['places']
-    })
+    DetailspagePageRoutingModule
   ],
   declarations: [DetailspagePage]
 })
