@@ -5,9 +5,11 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-thumbnail slot="start">
-    <img [src] = "'../../assets/image/logo' + '.png'">
-  </ion-thumbnail>
+  <ion-row style="height: 30px"></ion-row>
+  <div>
+    <img [src] = "'../../assets/image/logo.png'" class="logo">
+  </div>
+  <ion-row style="height: 10px"></ion-row>
   <ion-button routerLink = "/login" routerDirection="forward" fill="outline" expand="block" >Login</ion-button>
   <ion-row style="height: 10px"></ion-row>
   <ion-button routerLink = "/register" routerDirection="forward" fill="outline" expand="block">Sign Up</ion-button>
