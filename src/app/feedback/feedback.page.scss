@@ -1,0 +1,56 @@
+.feedback{
+    transform: translateX(-50%) translateY(-50%);
+    top: 40%;
+    left: 50%;
+    position: absolute;
+     
+    ion-card{
+        display: inline-block;
+        width: 340px;
+        height: 350px;
+    }
+    // ion-button{
+    //     display: inline-block;
+
+    // }
+}
+
+.text-area{
+    // font-size: 1.0em;
+    // text-align: center;
+    // position: relative;
+    // top: 20%;
+    // width: 100%;
+    // height: 50%;
+    ion-textarea{
+        height: 300px;
+        --padding-top: 10px;
+        --padding-end: 10px;
+        --padding-bottom: 200px;
+        --padding-start: 8px;
+        margin-top: 8px;
+        // .sc-ion-textarea-md-h {
+        //     --padding-top: 10px;
+        //     --padding-end: 10px;
+        //     --padding-bottom: 200px;
+        //     --padding-start: 8px;
+        //     margin-left: 0;
+        //     margin-right: 0;
+        //     margin-top: 8px;
+        //     margin-bottom: 0;
+        //     font-size: inherit;
+        // }
+    }
+
+    // .roundButton {
+    //     ion-button{
+    //         --border-radius: 50%;
+    //         height: 300px;
+    //     }
+        
+    //     // --vertical-align: right;
+    //     // float: right;
+    //     // --padding-start: 10px;
+    //     // --padding-end: 10px;
+    //   }
+}
