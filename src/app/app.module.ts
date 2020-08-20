@@ -15,6 +15,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import { UserService } from './user.service';
+import { Facebook } from "@ionic-native/facebook/ngx";
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { UserService } from './user.service';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, 
-    UserService
+    UserService,
+    Facebook
   ],
   bootstrap: [AppComponent]
 })
