@@ -165,7 +165,7 @@ export class DetailspagePage implements OnInit {
 
 
   async ngOnInit() {
-    await this.initializeItems();
+    this.seatList = await this.initializeItems();
   }
 
   ngOnDestroy() {
@@ -176,13 +176,15 @@ export class DetailspagePage implements OnInit {
   async initializeItems(){
     let totalSeats = this.data.seatsAvailable + this.data.seatsTaken;
     let myMap = this.data.seats;
+    const newItems = [];
     console.log(myMap);
     Object.keys(myMap).forEach(function(key) {
-      this.seatList.push(new seatItem(key, myMap[key]));
+      //this.seatList.push(new seatItem(key, myMap[key]));
+      newItems.push({seatCode: key, status: myMap[key]});
       console.log(key);
       console.log(myMap[key]);
     });
-    
+    return newItems;
   }
 
 
