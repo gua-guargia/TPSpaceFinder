@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-//import { NavController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { first } from 'rxjs/operators';
 import { DataService } from '../services/data.service';
@@ -14,7 +14,7 @@ export class SearchPage implements OnInit {
   public locationList: any[];
 
   constructor(
-    //private navCtrl: NavController,
+    private navCtrl: NavController,
     private router: Router, 
     private dataService: DataService,
     private firestore: AngularFirestore) { }
@@ -50,6 +50,10 @@ export class SearchPage implements OnInit {
         return (currentLocation.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
       }
     });
+  }
+
+  back(){
+    this.navCtrl.navigateRoot('/dashboard');
   }
 
 }

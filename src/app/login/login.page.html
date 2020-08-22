@@ -38,6 +38,15 @@
     <label class="error-message">{{errorMessage}}</label>
   </form>
   <p class="go-to-register">
+    Forget the password? <a (click)="goToRestPassword()">Reset your password</a>
+  </p>
+  <p class="go-to-register">
     No account yet? <a (click)="goToRegisterPage()">Create an account.</a>
   </p>
 </ion-content>
+
+<ion-footer (click)="back()">
+  <ion-toolbar color="secondary">
+    <ion-title>Back</ion-title>
+  </ion-toolbar>
+</ion-footer>

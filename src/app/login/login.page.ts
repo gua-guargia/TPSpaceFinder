@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { NavController } from '@ionic/angular';
 import { AuthenticateService } from '../services/authetication.service';
 import { UserService } from '../user.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginPage implements OnInit {
     private navCtrl: NavController,
     private authService: AuthenticateService,
     private formBuilder: FormBuilder,
-    public user: UserService
+    public user: UserService,
+    public afstore: AngularFirestore
 
   ) { }
 
@@ -58,7 +60,10 @@ export class LoginPage implements OnInit {
         this.user.setUser({
           email: value.email,
           uid: res.user.uid
-        })
+        });
+        this.afstore.doc(`Users/${res.user.uid}`).update({
+          password: value.password
+        });
         this.errorMessage = "";
         this.navCtrl.navigateForward('/dashboard');
       }, err => {
@@ -68,6 +73,14 @@ export class LoginPage implements OnInit {
 
   goToRegisterPage() {
     this.navCtrl.navigateForward('/register');
+  }
+
+  goToRestPassword() {
+    this.navCtrl.navigateForward('/password-resetpage');
+  }
+
+  back() {
+    this.navCtrl.navigateRoot('/home');
   }
 
 }

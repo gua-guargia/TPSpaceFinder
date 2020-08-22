@@ -8,6 +8,7 @@ import { async } from '@angular/core/testing';
 //import { WonderPush } from '@ionic-native/wonderpush/ngx';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { Platform } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 
 declare var google: any;
 export interface CombinedList{
@@ -113,7 +114,8 @@ export class DetailspagePage implements OnInit {
     private afs: AngularFirestore, 
     private user: UserService,
     private fcm: FCM, 
-    public plt: Platform
+    public plt: Platform,
+    private navCtrl: NavController
     //private wonderPush: WonderPush,
     //private push:Push
     //private mapsAPILoader: MapsAPILoader,
@@ -305,6 +307,9 @@ export class DetailspagePage implements OnInit {
     this.fcm.unsubscribeFromTopic('enappd');
   }
 
+  back(){
+    this.navCtrl.navigateBack;
+  }
 
 }
 

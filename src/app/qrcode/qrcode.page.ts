@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { ToastController, LoadingController } from '@ionic/angular';
 import jsQR from 'jsqr';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-qrcode',
@@ -23,7 +24,7 @@ export class QrcodePage implements OnInit {
 
   loading: HTMLIonLoadingElement;
 
-  constructor(private toastCtrl: ToastController, private loadingCtrl: LoadingController) {}
+  constructor(private toastCtrl: ToastController, private loadingCtrl: LoadingController, private navCtrl: NavController) {}
 
   ngAfterViewInit(){
     this.videoElement = this.video.nativeElement;
@@ -114,6 +115,10 @@ export class QrcodePage implements OnInit {
       ]
     });
     toast.present();
+  }
+
+  back(){
+    this.navCtrl.navigateRoot('/dashboard');
   }
 
 }
