@@ -29,6 +29,21 @@ ion-content{
 
   ion-button{
     width: 250px;
+    background-color: rgba(202, 200, 236, 0.5);
   }
-  
 }
+.buttons .menu ion-button{
+  // display: inline-block;
+  width: 250px;
+  // line-height: 45px;
+  border-radius: 20%;
+ 
+  // position: absolute;
+  // font-size: 30%;
+  // color: white;
+  // transition: 0.7s;
+}
+
+// .buttons .li ion-button{
+
+// }

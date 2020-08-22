@@ -64,8 +64,6 @@ export class QrcodePage implements OnInit {
 
   loading: HTMLIonLoadingElement;
 
-
-
   ngAfterViewInit(){
     this.videoElement = this.video.nativeElement;
     this.canvasElement = this.canvas.nativeElement;
@@ -126,7 +124,7 @@ export class QrcodePage implements OnInit {
        if(this.resData.length=2){
          this.location = this.resData[0];
           this.state = this.resData[1];
-          
+
           for (var lo of this.locationList){
             if (lo.name == this.location){
               if (lo.seats[this.state] == false){

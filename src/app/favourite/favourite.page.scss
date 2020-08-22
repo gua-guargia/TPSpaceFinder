@@ -5,6 +5,19 @@ ion-content{
     background-repeat: no-repeat;
     background-size: cover;
     overflow: hidden;
+
+    ion-button{
+        background-color: rgba(202, 200, 236, 0.5);
+      }
+    //   ion-label{
+    //     background-color: rgba(202, 200, 236, 0.5);
+    //   }
+    //   ion-card{
+    //     background: transparent;
+    //   }
+    //   ion-item{
+    //     background-color: rgba(202, 200, 236, 0.5);
+    //   }
   }
 
 .favCard{

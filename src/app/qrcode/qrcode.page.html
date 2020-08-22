@@ -7,12 +7,12 @@
 </ion-header>
 
 <ion-content>
-  <ion-button expand="full" (click)="startScan()">
+  <ion-button expand="full" (click)="startScan()" color="clear">
     <ion-icon slot="start" name="qr-scanner"></ion-icon>
     Start Scan
   </ion-button>
 
-  <ion-button expand="full" (click)="reset()" color="warning" *ngIf="scanResult">
+  <ion-button expand="full" (click)="reset()" color="clear" *ngIf="scanResult">
     <ion-icon slot="start" name="refresh"></ion-icon>
     Reset
   </ion-button>
@@ -20,7 +20,7 @@
   <video #video [hidden]="!scanActive" width = "100%"></video>
   <canvas #canvas hidden></canvas>
   
-  <ion-button expand="full" (click)="stopScan()" color="danger" *ngIf="scanActive">
+  <ion-button expand="full" (click)="stopScan()" color="clear" *ngIf="scanActive">
     <ion-icon slot="start" name="close"></ion-icon>
     Stop Scan
   </ion-button>
@@ -33,7 +33,6 @@
       {{resData}}
     </ion-card-content>
   </ion-card>
-
 </ion-content>
 
 <ion-footer (click)="back()">
