@@ -4,7 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth'
 //import { User } from 'firebase'
 import { first } from 'rxjs/operators'
 import { auth } from 'firebase/app'
-import { AngularFirestore } from '@angular/fire/firestore'
+import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore'
 import { firestore } from 'firebase/app'
 
 interface user {
@@ -59,6 +59,7 @@ export class UserService {
             username: newusername})
     }
 
+
     //update the firestore for gender
     async updateGender(newgender: string) {
         console.log("update the gender");
@@ -76,6 +77,11 @@ export class UserService {
             favouriteLocations: oldLocation})
     }
 
+    async updateFeedback(newFeedback: string) {
+        console.log("update the feedback");
+		return await this.afstore.doc(`Feedback/${this.user.uid}`).update({
+            feedback: newFeedback})
+    }
     
 
     async isAuthenticated() {

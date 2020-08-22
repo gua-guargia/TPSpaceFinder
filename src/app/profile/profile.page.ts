@@ -22,6 +22,7 @@ export class ProfilePage implements OnInit {
   mainuser: AngularFirestoreDocument
   sub
   busy: boolean = false
+  
 
   constructor(
     private afs: AngularFirestore, 

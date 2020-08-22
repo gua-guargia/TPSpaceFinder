@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Bookmarks</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <div class="favCard"> -->
+  <ion-grid>  
+  <ion-card *ngFor="let item of favouriteplace">
+    <ion-item>
+      <ion-label>
+        <h3>{{item}}</h3>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+</ion-grid>
+  <!-- <ion-button fill="outline" expand="block" (click)="fetch()">Refresh</ion-button> -->
+  <ion-button routerLink = "/dashboard" routerDirection="forward" fill="outline" expand="block">Dashboard</ion-button>
+
+<!-- </div> -->
+</ion-content>

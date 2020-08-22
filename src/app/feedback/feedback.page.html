@@ -13,12 +13,12 @@
     
       <ion-card-content class="text-area">
         <ion-item>
-          <ion-textarea placeholder="Please enter your feedback here:"></ion-textarea>
+          <ion-textarea [(ngModel)]="feedback" placeholder="Please enter your feedback here:"></ion-textarea>
         </ion-item>
       </ion-card-content>
     </ion-card>
     <div class="ion-text-right"> 
-      <ion-button routerLink = "/home" routerDirection="forward" fill="outline">Skip/Submit</ion-button>
+      <ion-button routerLink = "/home" routerDirection="forward" fill="outline" (click)="uploadFeedback()">Skip/Submit</ion-button>
     </div>
   </div>
 

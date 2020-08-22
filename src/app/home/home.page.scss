@@ -3,3 +3,32 @@
   display: block;
   align-items: center;
 }
+
+ion-content{
+  // --background: rgba(26, 27, 41, 1);
+  --background: none;
+  background-image: url('/assets/image/bookbackground.jpg');
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.image{
+    transform: translateX(-50%) translateY(-50%);
+    top: 30%;
+    left: 50%;
+    position: absolute;  
+}
+
+.buttons{
+  transform: translateX(-50%) translateY(-50%);
+  top: 65%;
+  left: 50%;
+  position: absolute;  
+
+  ion-button{
+    width: 250px;
+  }
+  
+}

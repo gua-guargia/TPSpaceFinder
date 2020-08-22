@@ -6,3 +6,11 @@
         min-width: 10rem;
     }
 }
+ion-content{
+    --background: none;
+    background-image: url('/assets/image/bookbackground.jpg');
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+  }

@@ -6,12 +6,13 @@
 
 <ion-content class="ion-padding">
   <ion-row style="height: 30px"></ion-row>
-  <div>
+  <div class="image">
     <img [src] = "'../../assets/image/logo.png'" class="logo">
   </div>
-  <ion-row style="height: 10px"></ion-row>
-  <ion-button routerLink = "/login" routerDirection="forward" fill="outline" expand="block" >Login</ion-button>
-  <ion-row style="height: 10px"></ion-row>
-  <ion-button routerLink = "/register" routerDirection="forward" fill="outline" expand="block">Sign Up</ion-button>
-
+  <div class="buttons">
+    <ion-row style="height: 10px"></ion-row>
+    <ion-button routerLink = "/login" routerDirection="forward" fill="outline" expand="block" >Login</ion-button>
+    <ion-row style="height: 10px"></ion-row>
+    <ion-button routerLink = "/register" routerDirection="forward" fill="outline" expand="block">Sign Up</ion-button>
+  </div>
 </ion-content>

@@ -49,6 +49,10 @@ const routes: Routes = [
     path: 'feedback',
     loadChildren: () => import('./feedback/feedback.module').then( m => m.FeedbackPageModule)
   },
+  {
+    path: 'favourite',
+    loadChildren: () => import('./favourite/favourite.module').then( m => m.FavouritePageModule)
+  },
 ];
 
 @NgModule({
