@@ -5,6 +5,10 @@ import { UserService } from '../user.service';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { firestore } from 'firebase/app';
 import { async } from '@angular/core/testing';
+//import { WonderPush } from '@ionic-native/wonderpush/ngx';
+
+import { FCM } from '@ionic-native/fcm/ngx';
+import { Platform } from '@ionic/angular';
 
 declare var google: any;
 
@@ -92,11 +96,19 @@ export class DetailspagePage implements OnInit {
     longitude: "103.929196"
   }];
 
+  //notification
+  pushes: any = [];
+
   constructor(
     private route: ActivatedRoute, 
     private router: Router,
     private afs: AngularFirestore, 
-    private user: UserService
+    private user: UserService,
+    private fcm: FCM, 
+    //private wonderPush: WonderPush,
+    public plt: Platform
+
+    //private push:Push
     //private mapsAPILoader: MapsAPILoader,
     //private ngZone: NgZone
     ) {
@@ -119,6 +131,30 @@ export class DetailspagePage implements OnInit {
     console.log(this.favouriteLocations);
     console.log(user.getUID);
     
+    //for notification push
+    this.plt.ready()
+      .then(() => {
+        this.fcm.onNotification().subscribe(data => {
+          if (data.wasTapped) {
+            console.log("Received in background");
+          } else {
+            console.log("Received in foreground");
+          };
+        });
+
+        this.fcm.onTokenRefresh().subscribe(token => {
+          // Register your new token in your back-end if you want
+          // backend.registerToken(token);
+        });
+      })
+    /*this.plt.ready()
+      .then(() => {
+        this.wonderPush.subscribeToNotifications()
+          .then(() => console.log("User subscribed to notifications"))
+          .catch((error: any) => console.error(error));
+
+      });*/
+
   }
 
 
@@ -137,6 +173,11 @@ export class DetailspagePage implements OnInit {
       this.myimage = '../../assets/image/filledheart.png';
       this.favouriteLocations.push(this.data.name)
       await this.user.updateFavouriteLocation(this.favouriteLocations);
+      //const onClick = (userConsent: boolean) => this.wonderPush.setUserConsent(userConsent);
+      /*this.wonderPush.sendEvent('purchase', {
+        float_price: 12.99,
+        string_sku: "X123456"
+      });*/
     }
     else {
       this.myimage = '../../assets/image/emptyheart.png';
@@ -216,6 +257,22 @@ export class DetailspagePage implements OnInit {
     }
     this.map = new google.maps.Map(this.mapRef.nativeElement, options);
     this.addMarkersToMap(this.markers);
+  }
+
+
+  //push notification
+  
+  subscribeToTopic() {
+    this.fcm.subscribeToTopic('enappd');
+  }
+  getToken() {
+    this.fcm.getToken().then(token => {
+      // Register your new token in your back-end if you want
+      // backend.registerToken(token);
+    });
+  }
+  unsubscribeFromTopic() {
+    this.fcm.unsubscribeFromTopic('enappd');
   }
 
 
