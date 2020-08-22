@@ -5,15 +5,15 @@ import { UserService } from '../user.service';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { firestore } from 'firebase/app';
 import { async } from '@angular/core/testing';
-//import { WonderPush } from '@ionic-native/wonderpush/ngx';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { Platform } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 declare var google: any;
-export interface CombinedList{
-  seatCode : string,
-  status : string
+export class seatItem {
+  constructor(public seatCode: string, public status: boolean) {
+  }
 }
 
 @Component({
@@ -105,7 +105,7 @@ export class DetailspagePage implements OnInit {
   
   //the seats
   //public seatList: CombinedList[];
-  public seatList: any[];
+  public seatList: seatItem[];
 
 
   constructor(
@@ -116,10 +116,6 @@ export class DetailspagePage implements OnInit {
     private fcm: FCM, 
     public plt: Platform,
     private navCtrl: NavController
-    //private wonderPush: WonderPush,
-    //private push:Push
-    //private mapsAPILoader: MapsAPILoader,
-    //private ngZone: NgZone
     ) {
 
     //for the pass info from the search page
@@ -169,7 +165,7 @@ export class DetailspagePage implements OnInit {
 
 
   async ngOnInit() {
-    this.seatList = await this.initializeItems();
+    await this.initializeItems();
   }
 
   ngOnDestroy() {
@@ -177,23 +173,16 @@ export class DetailspagePage implements OnInit {
   }
 
   //the seats
-  async initializeItems(): Promise<any> {
-    /*let seatList: CombinedList[];
+  async initializeItems(){
+    let totalSeats = this.data.seatsAvailable + this.data.seatsTaken;
     let myMap = this.data.seats;
-    let keys = [...myMap.keys()];
-    let values = [...myMap.values()];
-    const totalSeats = this.data.seatsAvailable + this.data.seatsTaken;
-    for(let j=0; j< totalSeats; j++) {
-      this.seatList[j].seatCode = keys[j];
-      if(values[j] == false) {
-        seatList[j].status = "Avaliable";
-      }
-      else {
-        seatList[j].status = "Taken";
-      }
-    }*/
-    const seatList = this.data.seats;
-    return seatList;
+    console.log(myMap);
+    Object.keys(myMap).forEach(function(key) {
+      this.seatList.push(new seatItem(key, myMap[key]));
+      console.log(key);
+      console.log(myMap[key]);
+    });
+    
   }
 
 
@@ -308,7 +297,7 @@ export class DetailspagePage implements OnInit {
   }
 
   back(){
-    this.navCtrl.navigateBack;
+    this.navCtrl.navigateBack('/search');
   }
 
 }
