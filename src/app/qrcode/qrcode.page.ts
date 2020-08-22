@@ -13,20 +13,26 @@ import { NavController } from '@ionic/angular';
 })
 export class QrcodePage implements OnInit {
 
-  seatsTaken: boolean
+  
   name: string
   uid: string
   mainuser: AngularFirestoreDocument
   username: string
   sub
   locationRef
+  seatsAvailable: number
+  seatsOccupancy: number
+  seatsTaken: number
+  totalSeats: number
+
   public locationList: any[];
 
   constructor(
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
     protected afs: AngularFirestore,
-    protected user: UserService
+    protected user: UserService,
+    private navCtrl: NavController
     ) {
       // this.mainuser = afs.doc(`Locations/${user.getUID()}`)
       // this.sub = this.mainuser.valueChanges().subscribe(event => {
@@ -120,21 +126,27 @@ export class QrcodePage implements OnInit {
        if(this.resData.length=2){
          this.location = this.resData[0];
           this.state = this.resData[1];
-          console.log(this.location);
-          console.log(this.state);
-          console.log(this.locationList)
+          
           for (var lo of this.locationList){
             if (lo.name == this.location){
               if (lo.seats[this.state] == false){
                 lo.seats[this.state] = true
-                this.afs.doc(`Locations/${this.location}`).update({
-                  "seats[this.state]": true
-                })
+                lo.seatsAvailable -= 1
+                lo.seatsTaken += 1
+                lo.seatsOccupancy = lo.seatsTaken/(lo.seatsAvailable+lo.seatsTaken)
               }else{
                 lo.seats[this.state] = false
-              }
-              console.log(lo.seats[this.state])
-              // console.log(lo.seats)
+                lo.seatsAvailable += 1
+                lo.seatsTaken -= 1
+                lo.seatsOccupancy = lo.seatsTaken/(lo.seatsAvailable+lo.seatsTaken)
+              } 
+             
+              this.afs.doc(`Locations/${this.location}`).update({
+                  seats: lo.seats,
+                  seatsAvailable: lo.seatsAvailable,
+                  seatsTaken: lo.seatsTaken,
+                  seatsOccupancy: lo.seatsOccupancy
+              })
           }
 
        }
