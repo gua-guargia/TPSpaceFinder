@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { UserService } from '../user.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-feedback',
@@ -19,6 +20,7 @@ export class FeedbackPage implements OnInit {
   constructor(
     private afs: AngularFirestore, 
     private user: UserService,
+    private navCtrl: NavController
   ) {  
     this.mainuser = afs.doc(`Users/${user.getUID()}`)
 		this.sub = this.mainuser.valueChanges().subscribe(event => {
@@ -37,4 +39,9 @@ export class FeedbackPage implements OnInit {
           feedback: this.feedback})
 		}
   }
+
+  back(){
+    this.navCtrl.navigateRoot('/dashboard');
+  }
+
 }

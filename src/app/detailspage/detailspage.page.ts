@@ -6,11 +6,15 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { firestore } from 'firebase/app';
 import { async } from '@angular/core/testing';
 //import { WonderPush } from '@ionic-native/wonderpush/ngx';
-
 import { FCM } from '@ionic-native/fcm/ngx';
 import { Platform } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 
 declare var google: any;
+export interface CombinedList{
+  seatCode : string,
+  status : string
+}
 
 @Component({
   selector: 'app-detailspage',
@@ -98,6 +102,11 @@ export class DetailspagePage implements OnInit {
 
   //notification
   pushes: any = [];
+  
+  //the seats
+  //public seatList: CombinedList[];
+  public seatList: any[];
+
 
   constructor(
     private route: ActivatedRoute, 
@@ -105,13 +114,14 @@ export class DetailspagePage implements OnInit {
     private afs: AngularFirestore, 
     private user: UserService,
     private fcm: FCM, 
+    public plt: Platform,
+    private navCtrl: NavController
     //private wonderPush: WonderPush,
-    public plt: Platform
-
     //private push:Push
     //private mapsAPILoader: MapsAPILoader,
     //private ngZone: NgZone
     ) {
+
     //for the pass info from the search page
     this.route.queryParams.subscribe((res) => {
       this.data = JSON.parse(res.value);
@@ -158,14 +168,36 @@ export class DetailspagePage implements OnInit {
   }
 
 
-  ngOnInit() {
-    
+  async ngOnInit() {
+    this.seatList = await this.initializeItems();
   }
 
   ngOnDestroy() {
 		this.sub.unsubscribe()
   }
 
+  //the seats
+  async initializeItems(): Promise<any> {
+    /*let seatList: CombinedList[];
+    let myMap = this.data.seats;
+    let keys = [...myMap.keys()];
+    let values = [...myMap.values()];
+    const totalSeats = this.data.seatsAvailable + this.data.seatsTaken;
+    for(let j=0; j< totalSeats; j++) {
+      this.seatList[j].seatCode = keys[j];
+      if(values[j] == false) {
+        seatList[j].status = "Avaliable";
+      }
+      else {
+        seatList[j].status = "Taken";
+      }
+    }*/
+    const seatList = this.data.seats;
+    return seatList;
+  }
+
+
+  //the favourite image
   async addEvent() {
     this.busy = true
 
@@ -197,7 +229,7 @@ export class DetailspagePage implements OnInit {
 
   //everytime we open this page, this function will run
   ionViewDidEnter() {
-    this.showMap();
+    this.initMap();
   }
 
   addMarkersToMap(markers) {
@@ -248,8 +280,8 @@ export class DetailspagePage implements OnInit {
     }
   }
 
-  showMap() {
-    const location = new google.maps.LatLng(-43.552965, 172.47315);
+  initMap() {
+    const location = new google.maps.LatLng(1.346845, 103.929159);
     const options = {
       center: location,
       zoom: 15,
@@ -275,6 +307,9 @@ export class DetailspagePage implements OnInit {
     this.fcm.unsubscribeFromTopic('enappd');
   }
 
+  back(){
+    this.navCtrl.navigateBack;
+  }
 
 }
 

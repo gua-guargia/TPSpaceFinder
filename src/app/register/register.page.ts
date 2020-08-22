@@ -87,5 +87,8 @@ export class RegisterPage implements OnInit {
     this.navCtrl.navigateBack('/login');
   }
 
+  back(){
+    this.navCtrl.navigateRoot('/home');
+  }
 
 }

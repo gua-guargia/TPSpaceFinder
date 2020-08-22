@@ -52,7 +52,11 @@ const routes: Routes = [
   {
     path: 'favourite',
     loadChildren: () => import('./favourite/favourite.module').then( m => m.FavouritePageModule)
+  },  {
+    path: 'password-resetpage',
+    loadChildren: () => import('./password-resetpage/password-resetpage.module').then( m => m.PasswordResetpagePageModule)
   },
+
 ];
 
 @NgModule({

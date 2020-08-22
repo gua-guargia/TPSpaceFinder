@@ -4,6 +4,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { UserService } from '../user.service';
 import { first, map } from 'rxjs/operators';
 import jsQR from 'jsqr';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-qrcode',
@@ -22,15 +23,15 @@ export class QrcodePage implements OnInit {
   public locationList: any[];
 
   constructor(
-    private toastCtrl: ToastController, 
+    private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
-    protected afs: AngularFirestore, 
+    protected afs: AngularFirestore,
     protected user: UserService
     ) {
       // this.mainuser = afs.doc(`Locations/${user.getUID()}`)
       // this.sub = this.mainuser.valueChanges().subscribe(event => {
       //   this.email = event.email})
-      
+
     }
 
   async ngOnInit() {
@@ -57,7 +58,7 @@ export class QrcodePage implements OnInit {
 
   loading: HTMLIonLoadingElement;
 
-  
+
 
   ngAfterViewInit(){
     this.videoElement = this.video.nativeElement;
@@ -81,7 +82,7 @@ export class QrcodePage implements OnInit {
 
  async scan() {
    console.log('SCAN');
- 
+
 
     if (this.videoElement.readyState === this.videoElement.HAVE_ENOUGH_DATA){
       if(this.loading){
@@ -111,7 +112,7 @@ export class QrcodePage implements OnInit {
         inversionAttempts: 'dontInvert'
       });
       console.log('code: ', code);
-      
+
       if (code) {
         this.scanActive = false;
         this.scanResult = code.data;
@@ -119,8 +120,8 @@ export class QrcodePage implements OnInit {
        if(this.resData.length=2){
          this.location = this.resData[0];
           this.state = this.resData[1];
-          console.log(this.location); 
-          console.log(this.state); 
+          console.log(this.location);
+          console.log(this.state);
           console.log(this.locationList)
           for (var lo of this.locationList){
             if (lo.name == this.location){
@@ -158,7 +159,7 @@ export class QrcodePage implements OnInit {
           //   //   console.log(lo.seats.s)
           //   // }
           // }
-          
+
           // this.afs.doc(`Locations/${this.location}`).update({
           //   "seats.A0": true
           // })
@@ -171,7 +172,7 @@ export class QrcodePage implements OnInit {
           // // })
           // // console.log(this.mainuser);
 
-          
+
         //   this.afs.doc(`Locations/${this.location}`).update({
         //    "seats.A0": false,
         //    "seats.A1": false,
@@ -214,26 +215,26 @@ export class QrcodePage implements OnInit {
         //    "seats.H3": false,
         //    "seats.H4": false,
         //  })
-          
-          // this.locationRef = this.afs.collection('Locations'); 
+
+          // this.locationRef = this.afs.collection('Locations');
           // // const updatedSeats = {
-            
+
           // // }
           // this.locationRef.doc(this.location).valueChanges().subscribe(event => {
           //   this.seatsTaken = event.seatsTaken
           // })
           // console.log(this.seatsTaken);
-            // this.locationRef.doc(this.location).update({ 
-            //   seats: 
+            // this.locationRef.doc(this.location).update({
+            //   seats:
             // });
-          
+
           // this.sub = this.mainuser.valueChanges().subscribe(event => {
           //     this.seatsTaken = event.seatsTaken})
           //     console.log(this.seatsTaken);
-       
-          
-          
-        
+
+
+
+
         // this.showQRToast();
       }else{
         if (this.scanActive){
@@ -245,9 +246,9 @@ export class QrcodePage implements OnInit {
       requestAnimationFrame(this.scan.bind(this));
     }
 
-   
 
-   
+
+
 
 
 
@@ -278,5 +279,8 @@ export class QrcodePage implements OnInit {
     toast.present();
   }
 
-}
+  back(){
+    this.navCtrl.navigateRoot('/dashboard');
+  }
 
+}

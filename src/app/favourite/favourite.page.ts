@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { UserService } from '../user.service';
+import { NavController } from '@ionic/angular';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class FavouritePage implements OnInit {
   constructor(
     private afs: AngularFirestore, 
     private user: UserService,
+    private navCtrl: NavController
   ) { this.mainuser = afs.doc(`Users/${user.getUID()}`)
     this.sub = this.mainuser.valueChanges().subscribe(event => {
     this.favouriteplace = event.favouriteLocations,
@@ -34,5 +36,9 @@ export class FavouritePage implements OnInit {
       this.email = event.email
       console.log(this.favouriteplace)}
       )
-    }
+  }
+
+  back(){
+    this.navCtrl.navigateRoot('/dashboard');
+  }
 }
