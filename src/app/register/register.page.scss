@@ -5,4 +5,23 @@ ion-content{
     background-repeat: no-repeat;
     background-size: cover;
     overflow: hidden;
+    ion-item {
+      --background: transparent;
+      --border-color: white;
+      --color: white;
+      --highlight-color-focused: yellow;
+  }
+  ion-label{
+    color:white;
+  }
+  ion-button{
+    background-color: rgba(202, 200, 236, 0.5);
+  }
+  .error-message{
+    color: white
+  }
+  .go-to-login{
+    color: white
+  }
+
   }

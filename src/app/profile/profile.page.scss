@@ -5,4 +5,12 @@ ion-content{
     background-repeat: no-repeat;
     background-size: cover;
     overflow: hidden;
+    ion-item {
+      --background: transparent;
+      --border-color: white;
+      --color: white;
+     }
+  ion-button{
+    background-color: rgba(202, 200, 236, 0.5);
+  }
   }

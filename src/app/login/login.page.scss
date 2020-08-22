@@ -5,4 +5,29 @@ ion-content{
     background-repeat: no-repeat;
     background-size: cover;
     overflow: hidden;
+
+    // ion-label{
+    //   --color: white;
+    //   --background: transparent;
+    // }
+
+    // ion-input{
+    //   --color: white;
+    //   --background: transparent;
+    // }
+    ion-item {
+      --background: transparent;
+      --border-color: white;
+      --color: white;
+     }
+  ion-button{
+    background-color: rgba(202, 200, 236, 0.5);
   }
+    
+  }
+
+// .formclass{
+//   ion-input{
+//     background-color: rgba(6, 3, 59, 0.5);
+//   }
+// }
