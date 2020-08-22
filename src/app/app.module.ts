@@ -16,6 +16,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import { UserService } from './user.service';
 import { Facebook } from "@ionic-native/facebook/ngx";
+import { FCM } from '@ionic-native/fcm/ngx';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { Facebook } from "@ionic-native/facebook/ngx";
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, 
     UserService,
-    Facebook
+    Facebook,
+    FCM
   ],
   bootstrap: [AppComponent]
 })

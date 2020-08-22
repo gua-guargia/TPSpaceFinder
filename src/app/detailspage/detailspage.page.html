@@ -23,4 +23,15 @@
   
   <div #map id="map"></div>
 
+  <p>Seats Available: {{ data.seatsAvailable}}</p>
+  <ion-list lines="none">
+    <ion-item *ngFor="let seatItem of seatList">
+      <ion-label class="ion-text-wrap">
+        <ion-text color="primary">
+          <h3>{{seatItem}} : {{seatItem}}</h3>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
 </ion-content>
