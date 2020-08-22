@@ -14,6 +14,15 @@
 
     // }
 }
+ion-content{
+    // --background: rgba(26, 27, 41, 1);
+    --background: none;
+    background-image: url('/assets/image/bookbackground.jpg');
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+  }
 
 .text-area{
     // font-size: 1.0em;
