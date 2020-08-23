@@ -16,7 +16,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import { UserService } from './user.service';
 import { Facebook } from "@ionic-native/facebook/ngx";
-import { FCM } from '@ionic-native/fcm/ngx';
+import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic/ngx";
 
 
 @NgModule({
@@ -31,12 +31,12 @@ import { FCM } from '@ionic-native/fcm/ngx';
     AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [
+    FCM,
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, 
     UserService,
-    Facebook,
-    FCM
+    Facebook
   ],
   bootstrap: [AppComponent]
 })
